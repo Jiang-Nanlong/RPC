@@ -1,6 +1,3 @@
-//
-// Created by cml on 24-12-28.
-//
 #include "../include/LogQueue.h"
 
 void LogQueue::Push(const std::string& str) {

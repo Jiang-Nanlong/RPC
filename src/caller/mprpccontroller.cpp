@@ -1,6 +1,3 @@
-//
-// Created by cml on 24-12-26.
-//
 #include "../../include/caller/mprpccontroller.h"
 
 MprpcController::MprpcController() {

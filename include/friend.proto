@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package fixbug;
+
+option cc_generic_services=true;
+
+message ResultCode1{
+    int32 errcode=1;
+    bytes errmsg=2;
+}
+
+message FriendRequest{
+    uint32 id=1;
+}
+
+message FriendResponse{
+    ResultCode1 result=1;
+    repeated bytes friends=2;
+}
+
+
+// service最后会被发布成一个类，最后的调用形式是UserServiceRpc.Login()
+service FriendServiceRpc{
+    rpc GetFriendList(FriendRequest) returns (FriendResponse);
+}

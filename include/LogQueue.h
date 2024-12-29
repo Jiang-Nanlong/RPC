@@ -1,9 +1,5 @@
-//
-// Created by cml on 24-12-26.
-//
+#pragma once
 
-#ifndef LOGQUEUE_H
-#define LOGQUEUE_H
 #include <string>
 #include <queue>
 #include <mutex>
@@ -22,4 +18,3 @@ public:
 
     std::string Pop();
 };
-#endif //LOGQUEUE_H

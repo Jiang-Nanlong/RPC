@@ -1,9 +1,5 @@
-//
-// Created by cml on 24-12-26.
-//
+#pragma once
 
-#ifndef MPRPCCONTROLLER_H
-#define MPRPCCONTROLLER_H
 #include <google/protobuf/service.h>
 #include <google/protobuf/stubs/callback.h>
 #include <string>
@@ -33,4 +29,3 @@ public:
 
     void NotifyOnCancel(google::protobuf::Closure* callback);
 };
-#endif //MPRPCCONTROLLER_H

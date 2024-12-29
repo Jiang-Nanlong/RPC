@@ -1,9 +1,5 @@
-//
-// Created by cml on 24-12-26.
-//
+#pragma once
 
-#ifndef MPRPCCHANNEL_H
-#define MPRPCCHANNEL_H
 #include "../rpcheader.pb.h"
 #include <google/protobuf/service.h>
 #include <google/protobuf/descriptor.h>
@@ -33,4 +29,4 @@ public:
         google::protobuf::Message* response,
         google::protobuf::Closure* done);
 };
-#endif //MPRPCCHANNEL_H
+

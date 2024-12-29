@@ -1,7 +1,3 @@
-//
-// Created by cml on 24-12-28.
-//
-
 #include "../include/Logger.h"
 
 Logger::Logger() {
@@ -32,7 +28,7 @@ Logger::Logger() {
 }
 
 void Logger::SetLogLevel(int level) {
-  this->loglevel = level;
+    this->loglevel = level;
 }
 
 void Logger::Log(const std::string& str) {

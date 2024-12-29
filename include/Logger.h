@@ -1,9 +1,4 @@
-//
-// Created by cml on 24-12-26.
-//
-
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #include "LogQueue.h"
 #include <thread>
@@ -50,4 +45,3 @@ snprintf(c, 1024, str, ##__VA_ARGS__);\
 logger.Log(c);\
 } while (0);\
 
-#endif //LOGGER_H

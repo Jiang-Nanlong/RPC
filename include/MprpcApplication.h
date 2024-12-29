@@ -1,9 +1,5 @@
-//
-// Created by cml on 24-12-26.
-//
+#pragma once
 
-#ifndef MPRPCAPPLICATION_H
-#define MPRPCAPPLICATION_H
 #include "ReadConfig.h"
 #include <unistd.h>
 
@@ -23,5 +19,3 @@ private:
     MprpcApplication(const MprpcApplication&) = delete;
     MprpcApplication(MprpcApplication&&) = delete;
 };
-
-#endif //MPRPCAPPLICATION_H

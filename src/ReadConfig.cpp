@@ -1,6 +1,3 @@
-//
-// Created by cml on 24-12-26.
-//
 #include "../include/ReadConfig.h"
 
 void ReadConfig::LoadConfigFile(const char* filename) {

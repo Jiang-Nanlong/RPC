@@ -1,12 +1,12 @@
-//
-// Created by cml on 24-12-26.
-//
 #include "../../include/user.pb.h"
 #include "../../include/MprpcApplication.h"
 #include "../../include/callee/RpcProvider.h"
+#include "../../include/friend.pb.h"
 
 #include <iostream>
 #include <string>
+#include <vector>
+
 
 // 本地服务
 class UserService : public fixbug::UserServiceRpc {
@@ -77,12 +77,44 @@ public:
     }
 };
 
+class FriendService :public fixbug::FriendServiceRpc {
+public:
+    std::vector<std::string> getfriendlist() {
+        std::vector<std::string> res;
+        res.push_back("abc");
+        res.push_back("def");
+        res.push_back("hij");
+        return res;
+    }
+
+    void GetFriendList(::google::protobuf::RpcController* controller,
+        const ::fixbug::FriendRequest* request,
+        ::fixbug::FriendResponse* response,
+        ::google::protobuf::Closure* done) {
+        uint32_t id = request->id();
+        std::cout << "id: " << id << std::endl;
+
+        std::vector<std::string> res = getfriendlist();
+
+        fixbug::ResultCode1* result_code = response->mutable_result();
+        result_code->set_errcode(0);
+        result_code->set_errmsg("");
+        for (auto& str : res) {
+            std::string* pstr = response->add_friends();
+            *pstr = str;
+        }
+
+        done->Run();
+    }
+};
+
 int main(int argc, char** argv) {
     MprpcApplication::Init(argc, argv);
 
     // 专门用来在框架上发布服务
     RpcProvider provider;
-    provider.NotifyService(new UserService());
+    // provider.NotifyService(new UserService());
+    provider.NotifyService(new FriendService());
     provider.Run();   // 启动了一个rpc server
 
     return 0;

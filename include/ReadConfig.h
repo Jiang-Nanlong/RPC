@@ -1,9 +1,5 @@
-//
-// Created by cml on 24-12-26.
-//
+#pragma once
 
-#ifndef READCONFIG_H
-#define READCONFIG_H
 #include <fstream>
 #include <unordered_map>
 #include <iostream>
@@ -18,4 +14,3 @@ public:
 
     std::string Load(const std::string key);
 };
-#endif //READCONFIG_H

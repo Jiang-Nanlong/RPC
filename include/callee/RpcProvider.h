@@ -1,11 +1,7 @@
-//
-// Created by cml on 24-12-26.
-//
 /// 创建一个rpcserver，允许callee在server上发布服务
 /// 接收caller的调用请求，反序列化请求，找到caller想调用的函数，并调用本地函数，然后序列化结果发送回去
 ///
-#ifndef RPCPROVIDER_H
-#define RPCPROVIDER_H
+#pragma once
 
 #include "../rpcheader.pb.h"
 #include "../muduo/EventLoop.h"
@@ -50,4 +46,3 @@ private:
     // Closure的回调操作，用于rpc调用结果的序列化和网络发送
     void sendRpcResponse(const ConnectionPtr& conn, google::protobuf::Message*);
 };
-#endif //RPCPROVIDER_H
