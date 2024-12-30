@@ -3,31 +3,34 @@
 #include "../../include/caller/mprpcchannel.h"
 #include "../../include/caller/mprpccontroller.h"
 #include "../../include/friend.pb.h"
+#include <chrono>
+#include <thread>
 
 int main(int argc, char** argv) {
     MprpcApplication::Init(argc, argv);
 
-    // fixbug::UserServiceRpc_Stub stub(new MprpcChannel());
-    // fixbug::LoginRequest request;
-    // request.set_name("abc");
-    // request.set_pwd("123");
+    fixbug::UserServiceRpc_Stub stub(new MprpcChannel());
+    fixbug::LoginRequest request;
+    request.set_name("abc");
+    request.set_pwd("123");
 
-    // fixbug::LoginResponse response;
-    // MprpcController controller;
-    // // 同步rpc调用
-    // stub.Login(&controller, &request, &response, nullptr);
-    // if (controller.Failed()) {
-    //     std::cout << controller.ErrorText() << std::endl;
-    // }
-    // else {
-    //     if (response.result().errcode() == 0) {
-    //         std::cout << std::boolalpha << "rpc login response: " << response.success() << std::noboolalpha << std::endl;
-    //     }
-    //     else {
-    //         std::cout << "rpc response error: " << response.result().errcode() << std::endl;
-    //     }
-    // }
+    fixbug::LoginResponse response;
+    MprpcController controller;
+    // 同步rpc调用
+    stub.Login(&controller, &request, &response, nullptr);
+    if (controller.Failed()) {
+        std::cout << controller.ErrorText() << std::endl;
+    }
+    else {
+        if (response.result().errcode() == 0) {
+            std::cout << std::boolalpha << "rpc login response: " << response.success() << std::noboolalpha << std::endl;
+        }
+        else {
+            std::cout << "rpc response error: " << response.result().errcode() << std::endl;
+        }
+    }
 
+    // std::this_thread::sleep_for(std::chrono::seconds(10));
 
     // fixbug::RegisterRequest register_request;
     // register_request.set_id(1);
@@ -63,22 +66,22 @@ int main(int argc, char** argv) {
     //     std::cout << query_response.name() << std::endl;
     // }
 
-    fixbug::FriendServiceRpc_Stub stub(new MprpcChannel());
-    fixbug::FriendRequest req;
-    req.set_id(1);
+    // fixbug::FriendServiceRpc_Stub stub(new MprpcChannel());
+    // fixbug::FriendRequest req;
+    // req.set_id(1);
 
-    fixbug::FriendResponse resp;
-    MprpcController controller;
-    stub.GetFriendList(&controller, &req, &resp, nullptr);
-    if (controller.Failed()) {
-        std::cout << controller.ErrorText() << std::endl;
-    }
-    else {
-        int size = resp.friends_size();
-        for (int i = 0;i < size;i++) {
-            std::cout << resp.friends(i) << std::endl;
-        }
-    }
+    // fixbug::FriendResponse resp;
+    // MprpcController controller;
+    // stub.GetFriendList(&controller, &req, &resp, nullptr);
+    // if (controller.Failed()) {
+    //     std::cout << controller.ErrorText() << std::endl;
+    // }
+    // else {
+    //     int size = resp.friends_size();
+    //     for (int i = 0;i < size;i++) {
+    //         std::cout << resp.friends(i) << std::endl;
+    //     }
+    // }
 
     return 0;
 }

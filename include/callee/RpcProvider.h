@@ -16,6 +16,7 @@
 #include "../muduo/Connection.h"
 #include "../muduo/Buffer.h"
 #include <google/protobuf/stubs/callback.h>
+#include "../zookeeperutil.h"
 
 // protobuf实现数据序列化和反序列化，发布
 

@@ -49,12 +49,32 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
         return;
     }
 
-    std::string ip =
-        MprpcApplication::getInstance().getConfig().Load("rpcserver_ip");
-    uint16_t port = atoi(MprpcApplication::getInstance()
-        .getConfig()
-        .Load("rpcserver_port")
-        .c_str());
+    // std::string ip =
+    //     MprpcApplication::getInstance().getConfig().Load("rpcserver_ip");
+    // uint16_t port = atoi(MprpcApplication::getInstance()
+    //     .getConfig()
+    //     .Load("rpcserver_port")
+    //     .c_str());
+
+    // 调用方不再是从配置文件读发布方的ip，而是从zookeeper获取对应的ip:port
+    ZKClient zk;
+    zk.Start();
+
+    std::string method_path = "/" + service_name + "/" + method_name;
+    std::string data = zk.Get(method_path.c_str());
+    if (data.empty()) {
+        controller->SetFailed("can't find " + method_path);
+        return;
+    }
+
+    int index = data.find(':');
+    if (index == -1) {
+        controller->SetFailed("invalid ip:port");
+        return;
+    }
+
+    std::string ip = data.substr(0, index);
+    uint16_t port = atoi(data.substr(index + 1).c_str());
 
     struct sockaddr_in server_addr;
     memset((void*)&server_addr, 0, sizeof(server_addr));

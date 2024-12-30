@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
 
     // 专门用来在框架上发布服务
     RpcProvider provider;
-    // provider.NotifyService(new UserService());
+    provider.NotifyService(new UserService());
     provider.NotifyService(new FriendService());
     provider.Run();   // 启动了一个rpc server
 

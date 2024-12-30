@@ -33,6 +33,24 @@ void RpcProvider::Run() {
 
     server.setThreadNum(1);
 
+    // 服务端发布任务时，把服务名/函数名对应的ip:port上传到zookeeper保存
+    ZKClient zk;
+    zk.Start();
+
+    // zookeeper每次只能创建一层目录
+    for (auto& sp : serviceMap) {
+        std::string service_name = "/" + sp.first;
+        zk.Create(service_name.c_str(), nullptr, 0);
+
+        for (auto& func : sp.second.methodMap) {
+            std::string method_name = service_name + "/" + func.first;
+            char method_pos[30];
+            memset((void*)method_pos, '\0', sizeof(method_pos));
+            sprintf(method_pos, "%s:%d", ip.c_str(), port);
+            zk.Create(method_name.c_str(), method_pos, strlen(method_pos), ZOO_EPHEMERAL);
+        }
+    }
+
     server.start();
     mainloop.loop();
 }

@@ -12,6 +12,7 @@
 #include <arpa/inet.h>
 #include "../MprpcApplication.h"
 #include "mprpccontroller.h"
+#include "../zookeeperutil.h"
 
 // _stub::func(controller, request, response, done) => channel::callmethod(method, controller, request, response, done)
 // caller在调用func之前会把参数写入到request中，并设置好response，
